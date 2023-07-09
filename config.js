@@ -2,5 +2,5 @@
 module.exports = {
     //加密和解密token的密钥
     jwtSecretKey:"yuanpan999 ^-^",
-    expiresIn:"1h"
+    expiresIn:"10h"
 }

@@ -9,10 +9,6 @@ const id = joi.number().integer().min(1).required()
 const nickname = joi.string().required()
 const email = joi.string().email().required()
 
-//定义分类名称 和 分类别名的 校验规则
-const name = joi.string().required()
-const alias = joi.string().alphanum().required()
-
 //更新头像
 const avatar = joi.string().dataUri().required()
 //定义验证注册和登录的规则对象
@@ -43,12 +39,5 @@ exports.update_password_schema = {
 exports.update_avatar_schema = {
     body:{
         avatar
-    }
-}
-//定义分类名称 和 分类别名的 校验规则
-exports.add_cate_schema = {
-    body:{
-        name,
-        alias
     }
 }

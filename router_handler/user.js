@@ -61,3 +61,4 @@ exports.login = (req, res) => {
         })
     })
 }
+//jsonwebtoken 生成token码  搭配config使用 作为密钥 expiresIn 控制token有效时常
