@@ -17,10 +17,11 @@ app.use((req, res, next) => {
     }
     next()
 })
-//一定在路由配置之前配置解析token中间件
+//一定在路由配置之前配置   解析token中间件
 const expressJWT = require("express-jwt")
 const config = require("./config")
 app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }))
+
 const userRouter = require("./router/user")
 const userinfoRouter = require("./router/userinfo")
 const artcateApi = require("./router/artcate")
