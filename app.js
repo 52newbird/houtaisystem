@@ -15,22 +15,25 @@ app.use((req, res, next) => {
             message: err instanceof Error ? err.message : err
         })
     }
-    next() 
+    next()
 })
 //一定在路由配置之前配置解析token中间件
 const expressJWT = require("express-jwt")
 const config = require("./config")
-app.use(expressJWT({secret:config.jwtSecretKey}).unless({path:[/^\/api\//]}))
+app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }))
 const userRouter = require("./router/user")
+const userinfoRouter = require("./router/userinfo")
+
 
 app.use("/api", userRouter)
+app.use("/my", userinfoRouter)
 
 //定义错误级别中间件
-app.use((err,req,res,next)=>{
+app.use((err, req, res, next) => {
     //验证失败导致的错误
-    if(err instanceof joi.ValidationError) return res.cc(err)
+    if (err instanceof joi.ValidationError) return res.cc(err)
     //身份认证导致的错误
-    if(err.name === "UnauthorizedError") return res.cc("身份认证失败")
+    if (err.name === "UnauthorizedError") return res.cc("身份认证失败")
     //未知的错误
     res.cc(err)
 })
