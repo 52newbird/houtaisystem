@@ -30,6 +30,7 @@ exports.updatePwd = (req,res)=>{
     db.query(sql,req.user.id,(err,results)=>{
         if(err) return res.cc(err)
         if(results.length!==1) return res.cc("用户不存在,请注册")
+        //判断密码是否正确
         const compareResult = bcrypt.compareSync(req.body.oldPwd,results[0].password)
         if(!compareResult) return res.cc("旧密码错误")
         // //定义更新密码sql语句
@@ -41,5 +42,14 @@ exports.updatePwd = (req,res)=>{
             if(results.affectedRows!== 1 ) return res.cc("更新密码失败")
             res.cc("更新密码成功",0)
         })
+    })
+}
+//更新头像
+exports.updateTittle= (req,res)=>{
+    const sql = "update ev_users set user_pic=? where id=?"
+    db.query(sql,[req.body.avatar,req.user.id],(err,results)=>{
+        if(err) return res.cc(err)
+        if(results.affectedRows!==1) return res.cc("更新头像失败")
+        res.cc("更新头像成功",0)
     })
 }

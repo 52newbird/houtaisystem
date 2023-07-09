@@ -23,11 +23,11 @@ const config = require("./config")
 app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }))
 const userRouter = require("./router/user")
 const userinfoRouter = require("./router/userinfo")
-
+const artcateApi = require("./router/artcate")
 
 app.use("/api", userRouter)
 app.use("/my", userinfoRouter)
-
+app.use("/my/article",artcateApi)
 //定义错误级别中间件
 app.use((err, req, res, next) => {
     //验证失败导致的错误
