@@ -48,7 +48,7 @@ exports.login = (req, res) => {
         //判断密码是否正确
         const compareResult = bcryptjs.compareSync(userinfo.password, results[0].password)
         if (!compareResult) return res.cc("登录失败")
-        //接下来生成token  首先剔除用户密码头像等敏感信息
+        //接下来生成token  首先剔除用户密码头像等敏感信息  results就是获取到的所有用户信息
         const user = { ...results[0], password: "", user_pic: "" }
         //对用户信息进行加密 
         const tokenStr = jwt.sign(user, config.jwtSecretKey, { expiresIn: config.expiresIn })

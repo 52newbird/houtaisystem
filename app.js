@@ -4,8 +4,11 @@ const app = express()
 const cors = require("cors")
 app.use(cors())
 const joi = require("joi")
-//配置解析数据的中间件
+//配置解析数据的中间件  内置解析
 app.use(express.urlencoded({ extended: false }))
+
+//托管静态资源
+app.use("/uploads",express.static('./uploads'))
 
 //封装一个全局中间件 用来简化res.send 
 app.use((req, res, next) => {
@@ -25,10 +28,12 @@ app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] 
 const userRouter = require("./router/user")
 const userinfoRouter = require("./router/userinfo")
 const artcateApi = require("./router/artcate")
+const articleApi = require("./router/article")
 
 app.use("/api", userRouter)
 app.use("/my", userinfoRouter)
 app.use("/my/article",artcateApi)
+app.use("/my/article",articleApi)
 //定义错误级别中间件
 app.use((err, req, res, next) => {
     //验证失败导致的错误

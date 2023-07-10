@@ -29,5 +29,12 @@ exports.find_cates_schema = {
         id
     }
 }
-
+//定义根据id更新数据
+exports.update_cates_schema = {
+    body:{
+        id,
+        name,
+        alias
+    }
+}
 
